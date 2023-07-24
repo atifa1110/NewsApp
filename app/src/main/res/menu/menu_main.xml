@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/bookmark_news"
         android:icon="@drawable/ic_baseline_bookmark"
         app:showAsAction="always"
-        android:title="@string/bookmark"
-        android:id="@+id/bookmark_news"/>
+        android:title="@string/bookmark" />
 
+    <item
+        android:id="@+id/bookmark_delete_all"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="collapseActionView"
+        android:title="@string/delete_all"/>
 </menu>

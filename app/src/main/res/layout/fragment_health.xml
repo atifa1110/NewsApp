@@ -14,8 +14,25 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_news"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_health"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:animateLayoutChanges="true"
+            android:animationCache="true"
+            android:clipChildren="true"
+            app:shimmer_dropoff="@integer/material_motion_duration_medium_1"
+            app:shimmer_repeat_mode="restart"
+            app:shimmer_shape="linear">
+
+            <include layout="@layout/item_shimmer2" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

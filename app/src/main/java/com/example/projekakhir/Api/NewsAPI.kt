@@ -1,4 +1,6 @@
-package com.example.projekakhir.Database
+package com.example.projekakhir.Api
+
+import com.example.projekakhir.Database.Source
 
 data class NewsAPI (
     val author: String,

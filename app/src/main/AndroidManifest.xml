@@ -24,9 +24,11 @@
         </activity>
         <activity
             android:name=".UI.DetailActivity"
+            android:parentActivityName=".UI.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.BookmarkNewsActivity"
+            android:name=".UI.BookmarkActivity"
+            android:parentActivityName=".UI.MainActivity"
             android:exported="false" />
         <activity
             android:name=".UI.MainActivity"

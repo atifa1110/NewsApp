@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.projekakhir.News
+import com.example.projekakhir.Util.Constant
 
 @Database(entities = [News::class], version = 3, exportSchema = false)
 abstract class NewsRoomDatabase : RoomDatabase() {
 
-    abstract fun newsDao() : NewsDao
+    abstract fun getNewsDao() : NewsDao
 
     companion object {
         @Volatile
@@ -20,7 +21,7 @@ abstract class NewsRoomDatabase : RoomDatabase() {
             if (INSTANCE == null) {
                 synchronized(NewsRoomDatabase::class.java) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        NewsRoomDatabase::class.java, "news_database")
+                        NewsRoomDatabase::class.java, Constant.DATABASE_NAME)
                         .build()
                 }
             }

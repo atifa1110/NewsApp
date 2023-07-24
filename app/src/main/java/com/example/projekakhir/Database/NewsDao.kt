@@ -10,9 +10,12 @@ interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(news : News)
 
+    @Delete
+    fun delete(news: News)
+
     @Query("SELECT * FROM News")
     fun getAllNews(): LiveData<List<News>>
 
-    @Delete
-    fun delete(news: News)
+    @Query("DELETE FROM News")
+    fun deleteAllNews()
 }

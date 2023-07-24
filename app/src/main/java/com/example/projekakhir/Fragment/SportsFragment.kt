@@ -5,20 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projekakhir.Adapter.NewsAdapter
+import com.example.projekakhir.Database.NewsViewModel
 import com.example.projekakhir.News
 import com.example.projekakhir.R
 import com.example.projekakhir.UI.MainActivity
 import com.example.projekakhir.Util.Constant
+import com.facebook.shimmer.ShimmerFrameLayout
 
 
 class SportsFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: NewsAdapter
-    private lateinit var newsList: List<News>
+    private lateinit var newsAdapter: NewsAdapter
+    private lateinit var viewModel: NewsViewModel
+    private lateinit var shimmer: ShimmerFrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,14 +36,24 @@ class SportsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        shimmer = view.findViewById(R.id.shimmer_sports)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
+        viewModel.getNewsApi(category = "Sports")?.observe(viewLifecycleOwner, Observer {
+            newsAdapter.setNewsList(it);
+            if(newsAdapter.itemCount!=0){
+                shimmer.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+            }else{
+                shimmer.visibility = View.VISIBLE
+                recyclerView.visibility = View.GONE
+            }
+        });
 
         recyclerView = view.findViewById(R.id.rv_news)
         recyclerView.layoutManager = layoutManager
-
-        // Setting recyclerViews adapter
-        newsList = MainActivity.sportsNews.slice(Constant.TOP_HEADLINES_COUNT until MainActivity.scienceNews.size - Constant.TOP_HEADLINES_COUNT)
-        adapter = NewsAdapter(newsList)
-        recyclerView.adapter = adapter
+        newsAdapter = NewsAdapter()
+        recyclerView.adapter = newsAdapter
     }
 }

@@ -12,13 +12,6 @@ import com.example.projekakhir.Adapter.TabPagerAdapter
 import com.example.projekakhir.Database.NewsViewModel
 import com.example.projekakhir.News
 import com.example.projekakhir.R
-import com.example.projekakhir.Util.Constant.Companion.ENTERTAINMENT
-import com.example.projekakhir.Util.Constant.Companion.HEALTH
-import com.example.projekakhir.Util.Constant.Companion.HOME
-import com.example.projekakhir.Util.Constant.Companion.SCIENCE
-import com.example.projekakhir.Util.Constant.Companion.SPORTS
-import com.example.projekakhir.Util.Constant.Companion.TECHNOLOGY
-import com.example.projekakhir.Util.Constant.Companion.TOTAL_NEWS_TAB
 import com.example.projekakhir.databinding.ActivityMainBinding
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.tabs.TabLayout
@@ -31,22 +24,12 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _activityMainBinding
 
     private val TAB_TITLES = intArrayOf(
-        R.string.tab_home,
-        R.string.tab_sports,
-        R.string.tab_health,
-        R.string.tab_science,
-        R.string.tab_entertainment,
-        R.string.tab_technology
+        R.string.tab_home, R.string.tab_sports,
+        R.string.tab_health, R.string.tab_science,
+        R.string.tab_entertainment, R.string.tab_technology
     )
 
     companion object {
-        var EXTRADATA = "news"
-        var homeNews: ArrayList<News> = ArrayList()
-        var entertainmentNews: MutableList<News> = mutableListOf()
-        var healthNews: MutableList<News> = mutableListOf()
-        var scienceNews: MutableList<News> = mutableListOf()
-        var sportsNews: MutableList<News> = mutableListOf()
-        var techNews: MutableList<News> = mutableListOf()
         var apiRequestError = false
         var errorMessage = "error"
     }
@@ -55,8 +38,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
     private lateinit var tabAdapter: TabPagerAdapter
-    private lateinit var shimmerLayout: ShimmerFrameLayout
-    private var totalRequestCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,62 +45,37 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         setSupportActionBar(binding?.toolbar)
+        supportActionBar?.elevation = 0f
 
         tabAdapter = TabPagerAdapter(this)
-        viewPager = findViewById(R.id.view_pager)
+        viewPager = binding?.viewPager!!
         binding?.viewPager?.adapter = tabAdapter
         tabLayout = findViewById(R.id.tab_layout)
+
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
 
-        supportActionBar?.elevation = 0f
-
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
         if (!viewModel.isNetworkAvailable(applicationContext)) {
-            binding?.shimmerLayout?.visibility = View.GONE
             binding?.displayError?.text = getString(R.string.internet_warming)
             binding?.displayError?.visibility = View.VISIBLE
         }
 
-        // Send request call for news data
-        getNewsCategory(HOME, homeNews)
-        getNewsCategory(SPORTS, sportsNews)
-        getNewsCategory(HEALTH, healthNews)
-        getNewsCategory(SCIENCE, scienceNews)
-        getNewsCategory(TECHNOLOGY, techNews)
-        getNewsCategory(ENTERTAINMENT, entertainmentNews)
+        setViewPager();
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        menu?.findItem(R.id.bookmark_delete_all)?.isVisible = false
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        intent = Intent(applicationContext, BookmarkNewsActivity::class.java)
+        intent = Intent(applicationContext, BookmarkActivity::class.java)
         startActivity(intent)
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun getNewsCategory(newsCategory: String, newsData: MutableList<News>) {
-        viewModel.getNewsApi(category = newsCategory)?.observe(this) {
-            newsData.addAll(it)
-            totalRequestCount += 1
-
-            //If main fragment loaded then attach the fragment to viewPager
-            if (newsCategory == HOME) {
-                binding?.shimmerLayout?.stopShimmer()
-                binding?.shimmerLayout?.hideShimmer()
-                binding?.shimmerLayout?.visibility = View.GONE
-                setViewPager()
-            }
-
-            if (totalRequestCount == TOTAL_NEWS_TAB) {
-                viewPager.offscreenPageLimit = 6
-            }
-        }
     }
 
     private fun setViewPager() {

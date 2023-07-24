@@ -35,6 +35,10 @@ class NewsViewModel () : ViewModel(){
         return newsData
     }
 
+    fun deleteNewsDatabase(context: Context){
+        NewsRepository.deleteAllNews(context)
+    }
+
     // Check internet connection
     fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager =
