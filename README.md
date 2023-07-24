@@ -27,13 +27,12 @@ News App adalah Aplikasi berita sederhana berbasis kotlin yang menggunakan NewsA
 </table><br><br>
 
 ### Tools and Tech stack used : 
-
- * Kotlin
- * Binding
- * XML
- * MVVM Arsitektur
- * Room database library
- * Retrofit
- * JSON
+1. Kotlin
+2. Binding
+3. XML
+4. MVVM Arsitektur
+5. Room database 
+6. Retrofit
+7. JSON
    
 
