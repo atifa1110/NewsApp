@@ -1,8 +1,8 @@
-# NewsApp 📰
+# News App 📰
 **Your go-to mobile application for the latest news at your fingertips!**
 
 ## 🌟 Overview
-NewsApp is a user-friendly mobile application that provides users with the latest news articles from various categories. Whether you're interested in politics, sports, entertainment, or technology, NewsApp keeps you updated with real-time news notifications and articles from trusted sources.
+News App is a user-friendly mobile application that provides users with the latest news articles from various categories. Whether you're interested in politics, sports, entertainment, or technology, NewsApp keeps you updated with real-time news notifications and articles from trusted sources.
 
 ## ✨ Key Features
 - **Real-Time News Updates**: Stay informed with the latest news articles as they break.
