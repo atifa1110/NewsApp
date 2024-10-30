@@ -1,13 +1,14 @@
-# News-App 
+# NewsApp 📰
+**Your go-to mobile application for the latest news at your fingertips!**
 
-### Overview :
-News App adalah Aplikasi berita sederhana berbasis kotlin yang menggunakan NewsAPI untuk menampilkan list berita terkini 
+## 🌟 Overview
+NewsApp is a user-friendly mobile application that provides users with the latest news articles from various categories. Whether you're interested in politics, sports, entertainment, or technology, NewsApp keeps you updated with real-time news notifications and articles from trusted sources.
 
-### Features :
-1. Menampilkan List Berita dengan berbagai kategori
-2. Menambahkan Bookmark Berita 
-3. Menghapus Bookmark Berita
-4. Menampilkan detail berita berbasis web 
+## ✨ Key Features
+- **Real-Time News Updates**: Stay informed with the latest news articles as they break.
+- **Category Selection**: Easily browse news by categories like Sports, Technology, Politics, and more.
+- **Bookmark Articles**: Save your favorite articles for easy access later.
+- **User-Friendly Interface**: A clean and intuitive design for a seamless reading experience.
 
  ### Screenshots : 
  
